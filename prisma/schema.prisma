@@ -37,6 +37,7 @@ model Job {
   slug             String  @unique
   title            String
   type             String
+  companyName      String
   locationType     String
   location         String? // make it optional
   description      String? // make it optional

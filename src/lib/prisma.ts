@@ -1,15 +1,21 @@
-import { PrismaClient } from "@prisma/client";
+//initial lize prisma client
 
-const prismaClientSingleton = () => {
+import { PrismaClient } from '@prisma/client';
+import { Return } from '@prisma/client/runtime/library';
+import exp from 'constants';
+
+const PrismaClientSingleton = () => {
   return new PrismaClient();
 };
 
 declare global {
-  var prisma: undefined | ReturnType<typeof prismaClientSingleton>;
+  var prisma: undefined | Return<typeof PrismaClientSingleton>;
 }
 
-const prisma = globalThis.prisma ?? prismaClientSingleton();
+const prisma = global.prisma ?? PrismaClientSingleton();
 
 export default prisma;
 
-if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma;
+if(process.env.NODE_ENV !== 'production') {
+  global.prisma = prisma;
+}
